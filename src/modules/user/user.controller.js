@@ -1,7 +1,13 @@
 class UserController {
+    userService
+    constructor(userService) {
+        this.userService = userService
+    }
+
     signUp = async (req, res) => {
+        const user = await this.userService.create()
         res.json({
-            data: "Успешно зарегистрированы"
+            data: user
         })
     }
 

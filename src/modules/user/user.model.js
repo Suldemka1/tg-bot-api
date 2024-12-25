@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Sequelize } from "sequelize";
 import { db } from "../database/connection.js";
 
 class User extends Model{}
@@ -6,7 +6,7 @@ class User extends Model{}
 User.init({
     id: {
         type: DataTypes.UUID,
-        autoIncrement: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
     },
     telegramId: {
@@ -27,7 +27,10 @@ User.init({
     }
 }, {
     sequelize: db,
-    modelName: "User"
+    modelName: "User",
+    
 })
+
+User.sync()
 
 export {User}
