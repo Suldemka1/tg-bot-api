@@ -4,17 +4,24 @@ class UserService {
         this.userRepository = userRepository
     }
 
-    create = async () => {
-        const createResult = await this.userRepository.create()
+    create = async (body) => {
+        const createResult = await this.userRepository.create(body)
         return createResult
     }
 
-    getById = async () => {
-
+    getAll = async () => {
+        const users = await this.userRepository.findAll()
+        return users
     }
 
-    update = async () => {
+    getById = async (id) => {
+        const user = await this.userRepository.findById(id)
+        return user
+    }
 
+    update = async (id, body) => {
+        const updatedUser = await this.userRepository.update(id, body)
+        return updatedUser
     }
 }
 
