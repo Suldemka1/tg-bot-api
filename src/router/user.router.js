@@ -9,13 +9,13 @@ const router = Router()
 const userRepository = new UserRepository(db)
 const userService = new UserService(userRepository)
 const userController = new UserController(userService)
-// РЕАЛИЗОВАТЬ МЕТОДЫ
+
 router.post("/register", userController.signUp)
 router.post("/auth", userController.signIn)
 
-router.get("/",)
-router.get("/:id")
-router.patch("/:id")
-router.delete("/:id")
+router.get("/", userController.getAll)
+router.get("/:id", userController.getById)
+router.patch("/:id", userController.update)
+router.delete("/:id", userController.delete)
 
 export {router as userRouter}

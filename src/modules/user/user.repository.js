@@ -6,26 +6,38 @@ class UserRepository {
         this.db = db
     }
 
-    create = async () => {
+    create = async (body) => {
         const user = await User.create({
             telegramId: "213712847",
-            surname: "Хирлиг-оол",
-            name: "Сулдем",
-            email: "suldemka1@gmail.com",
-            password: "asfnalsfbl"
+            surname: body.surname,
+            name: body.name,
+            email: body.email,
+            password: body.password
         })
-
 
         return user
     }
 
-    findOne = async (id) => {
-
-    }
-
     findAll = async () => {
-
+        const users = await User.findAll()
+        return users
     }
+
+    findById = async (id) => {
+        const user = await User.findByPk(id)
+        return user
+    }
+
+    update = async (id, userModel) => {
+        const updatedUser = await User.update(userModel, {
+            where: {
+                id,
+            }
+        })
+        return updatedUser
+    }
+
+    
 }
 
 export {UserRepository}
