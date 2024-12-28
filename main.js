@@ -6,6 +6,7 @@ import { router } from "./src/router/index.js";
 import { Telegraf, session } from "telegraf";
 import { message } from "telegraf/filters";
 import { UserBotController } from "./src/modules/user/user.bot.controller.js";
+import { ImageBotController } from "./src/modules/image/image.bot.controller.js";
 
 const PORT = process.env.PORT
 const TG_BOT_TOKEN = process.env.TG_BOT_TOKEN
@@ -21,17 +22,9 @@ app.use(express.json())
 app.use("/api", router)
 
 const userBotController = new UserBotController()
+const imageBotController = new ImageBotController()
 
-bot.command("signup", userBotController.signUp)
-
-bot.command("signin", userBotController.signIn)
-
-bot.on(message("text"), async (ctx) => {
-    if (ctx.session.lastCommand && ctx.session.lastCommand === "signup") {
-        ctx.reply(`Вас зовут ${ctx.update.message.text}`)
-    }
-    console.log(ctx)
-})
+bot.command("randomImage", imageBotController.getRandomImage)
 
 app.listen(PORT, () => {
     db.authenticate()
